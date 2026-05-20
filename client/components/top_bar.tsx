@@ -253,17 +253,23 @@ export function TopBar({
           </div>
           <div className="sb-tabs">
             {tabs.map((tab) => (
-              <button
+              <div
                 key={tab.path}
-                type="button"
                 className={`sb-tab ${tab.active ? "active" : ""}`}
-                onClick={() => onTabSelect(tab.path)}
                 title={tab.path}
               >
-                <span className="sb-tab-name">{tab.name}</span>
+                <button
+                  type="button"
+                  className="sb-tab-select"
+                  onClick={() => onTabSelect(tab.path)}
+                >
+                  <span className="sb-tab-name">{tab.name}</span>
+                </button>
                 {tabs.length > 1 && (
-                  <span
+                  <button
+                    type="button"
                     className="sb-tab-close"
+                    aria-label={`Close tab ${tab.name}`}
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -271,9 +277,9 @@ export function TopBar({
                     }}
                   >
                     &times;
-                  </span>
+                  </button>
                 )}
-              </button>
+              </div>
             ))}
           </div>
         </div>

@@ -65,13 +65,18 @@
       align-items: center;
       gap: 6px;
       max-width: 220px;
-      padding: 3px 8px;
+      padding: 0;
       border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-family: var(--ui-font);
-      font-size: 14px;
-      line-height: 1.2;
+
+      .sb-tab-select {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-family: var(--ui-font);
+        font-size: 14px;
+        line-height: 1.2;
+        padding: 3px 0 3px 8px;
+      }
 
       .sb-tab-name {
         overflow: hidden;
@@ -80,8 +85,13 @@
       }
 
       .sb-tab-close {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: inherit;
         font-size: 18px;
         line-height: 1;
+        padding: 2px 8px 2px 2px;
         opacity: 0.75;
       }
 

@@ -44,13 +44,10 @@ export default function reducer(
     }
     case "close-tab": {
       const openTabs = state.openTabs.filter((path) => path !== action.path);
-      const activeTab = state.activeTab === action.path
-        ? openTabs.at(-1)
-        : state.activeTab;
       return {
         ...state,
         openTabs,
-        activeTab,
+        activeTab: state.activeTab === action.path ? undefined : state.activeTab,
       };
     }
     case "document-editor-changed":

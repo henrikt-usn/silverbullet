@@ -561,6 +561,7 @@ export class MainUI {
           }}
           onTabClose={(path) => {
             if (viewState.openTabs.length <= 1) {
+              this.flashNotification("Cannot close the last open tab", "info");
               return;
             }
             const isActive = viewState.current?.path === path;
