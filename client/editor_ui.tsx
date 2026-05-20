@@ -548,6 +548,34 @@ export class MainUI {
           readOnly={
             viewState.uiOptions.forcedROMode || client.bootConfig.readOnly
           }
+          tabs={viewState.openTabs.map((path) => ({
+            path,
+            name: getNameFromPath(path),
+            active: viewState.current?.path === path,
+          }))}
+          onTabSelect={(path) => {
+            if (path === viewState.current?.path) return;
+            safeRun(async () => {
+              await client.navigate({ path });
+            });
+          }}
+          onTabClose={(path) => {
+            if (viewState.openTabs.length <= 1) {
+              return;
+            }
+            const isActive = viewState.current?.path === path;
+            const closingIndex = viewState.openTabs.indexOf(path);
+            const fallbackPath = closingIndex >= 0
+              ? viewState.openTabs[closingIndex + 1] ??
+                viewState.openTabs[closingIndex - 1]
+              : undefined;
+            dispatch({ type: "close-tab", path });
+            if (isActive && fallbackPath) {
+              safeRun(async () => {
+                await client.navigate({ path: fallbackPath });
+              });
+            }
+          }}
         />
         <div id="sb-main">
           {viewState.panels.lhs.mode !== undefined && (

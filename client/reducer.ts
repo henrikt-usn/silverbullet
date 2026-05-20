@@ -14,9 +14,15 @@ export default function reducer(
       return {
         ...state,
         isLoading: false,
+        isMobile: !mouseDetected,
+        isStandalone: !isBrowser,
+        openTabs: state.openTabs.includes(action.path)
+          ? state.openTabs
+          : [...state.openTabs, action.path],
+        activeTab: action.path,
         current: {
           path: action.path,
-          meta: action.meta,
+          meta: action.meta as PageMeta,
         },
       };
     case "page-loaded": {
@@ -26,12 +32,25 @@ export default function reducer(
       return {
         ...state,
         isLoading: false,
-        isMobile: !mouseDetected,
-        isStandalone: !isBrowser,
+        openTabs: state.openTabs.includes(action.path)
+          ? state.openTabs
+          : [...state.openTabs, action.path],
+        activeTab: action.path,
         current: {
           path: action.path,
-          meta: action.meta as PageMeta,
+          meta: action.meta,
         },
+      };
+    }
+    case "close-tab": {
+      const openTabs = state.openTabs.filter((path) => path !== action.path);
+      const activeTab = state.activeTab === action.path
+        ? openTabs.at(-1)
+        : state.activeTab;
+      return {
+        ...state,
+        openTabs,
+        activeTab,
       };
     }
     case "document-editor-changed":

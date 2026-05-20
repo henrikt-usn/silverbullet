@@ -13,6 +13,12 @@ export type ActionButton = {
   dropdown?: boolean;
 };
 
+export type TopTab = {
+  path: string;
+  name: string;
+  active: boolean;
+};
+
 function pageNameClass(
   isLoading: boolean,
   unsavedChanges: boolean,
@@ -164,6 +170,9 @@ export function TopBar({
   cssClass,
   mobileMenuStyle,
   readOnly,
+  tabs,
+  onTabSelect,
+  onTabClose,
 }: {
   pageName?: string;
   unsavedChanges: boolean;
@@ -182,6 +191,9 @@ export function TopBar({
   cssClass?: string;
   mobileMenuStyle?: string;
   readOnly: boolean;
+  tabs: TopTab[];
+  onTabSelect: (path: string) => void;
+  onTabClose: (path: string) => void;
 }) {
   return (
     <div
@@ -238,6 +250,31 @@ export function TopBar({
                 </>
               )
               : <ActionButtons buttons={actionButtons} />}
+          </div>
+          <div className="sb-tabs">
+            {tabs.map((tab) => (
+              <button
+                key={tab.path}
+                type="button"
+                className={`sb-tab ${tab.active ? "active" : ""}`}
+                onClick={() => onTabSelect(tab.path)}
+                title={tab.path}
+              >
+                <span className="sb-tab-name">{tab.name}</span>
+                {tabs.length > 1 && (
+                  <span
+                    className="sb-tab-close"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onTabClose(tab.path);
+                    }}
+                  >
+                    &times;
+                  </span>
+                )}
+              </button>
+            ))}
           </div>
         </div>
       </div>

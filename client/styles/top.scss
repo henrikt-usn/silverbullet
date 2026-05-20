@@ -3,7 +3,7 @@
   flex-direction: row;
   z-index: 20;
 
-  height: 55px;
+  min-height: 55px;
 
   .main {
     flex: 2;
@@ -16,7 +16,8 @@
       font-size: 28px;
       padding: 8px 0;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      gap: 6px;
 
       .wrapper {
         width: env(titlebar-area-width, 100%);
@@ -24,7 +25,6 @@
         display: flex;
         box-sizing: border-box;
         position: relative;
-
       }
     }
 
@@ -50,6 +50,43 @@
           padding: 0;
           caret-color: var(--editor-caret-color);
         }
+      }
+    }
+  }
+
+  .sb-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 0 20px;
+    overflow-x: auto;
+
+    .sb-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 220px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--ui-font);
+      font-size: 14px;
+      line-height: 1.2;
+
+      .sb-tab-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .sb-tab-close {
+        font-size: 18px;
+        line-height: 1;
+        opacity: 0.75;
+      }
+
+      &.active .sb-tab-close {
+        opacity: 1;
       }
     }
   }

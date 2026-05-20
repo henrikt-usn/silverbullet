@@ -23,6 +23,8 @@ export type AppViewState = {
     path: Path;
     meta: PageMeta | DocumentMeta;
   };
+  openTabs: Path[];
+  activeTab?: Path;
 
   allPages: PageMeta[];
   allDocuments: DocumentMeta[];
@@ -98,6 +100,8 @@ export const initialViewState: AppViewState = {
   },
   allPages: [],
   allDocuments: [],
+  openTabs: [],
+  activeTab: undefined,
   commands: new Map(),
 
   notifications: [],
@@ -119,6 +123,7 @@ export type Action =
   | { type: "document-editor-loaded"; path: Path; meta: DocumentMeta }
   | { type: "document-editor-changed" }
   | { type: "document-editor-saved" }
+  | { type: "close-tab"; path: Path }
   | { type: "online-status-change"; isOnline: boolean }
   | { type: "update-current-page-meta"; meta: PageMeta }
   | { type: "update-page-list"; allPages: PageMeta[] }
