@@ -14,15 +14,13 @@ export default function reducer(
       return {
         ...state,
         isLoading: false,
-        isMobile: !mouseDetected,
-        isStandalone: !isBrowser,
         openTabs: state.openTabs.includes(action.path)
           ? state.openTabs
           : [...state.openTabs, action.path],
         activeTab: action.path,
         current: {
           path: action.path,
-          meta: action.meta as PageMeta,
+          meta: action.meta,
         },
       };
     case "page-loaded": {
@@ -32,13 +30,15 @@ export default function reducer(
       return {
         ...state,
         isLoading: false,
+        isMobile: !mouseDetected,
+        isStandalone: !isBrowser,
         openTabs: state.openTabs.includes(action.path)
           ? state.openTabs
           : [...state.openTabs, action.path],
         activeTab: action.path,
         current: {
           path: action.path,
-          meta: action.meta,
+          meta: action.meta as PageMeta,
         },
       };
     }
