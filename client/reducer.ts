@@ -48,7 +48,7 @@ export default function reducer(
         ...state,
         openTabs,
         activeTab: state.activeTab === action.path
-          ? action.fallbackPath
+          ? action.fallbackPath ?? openTabs[0]
           : state.activeTab,
       };
     }

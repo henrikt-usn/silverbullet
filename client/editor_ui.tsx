@@ -567,7 +567,9 @@ export class MainUI {
             const isActive = viewState.current?.path === path;
             const closingIndex = viewState.openTabs.indexOf(path);
             const remainingTabs = viewState.openTabs.filter((p) => p !== path);
-            const fallbackIndex = Math.min(closingIndex, remainingTabs.length - 1);
+            const fallbackIndex = closingIndex >= remainingTabs.length
+              ? remainingTabs.length - 1
+              : closingIndex;
             const fallbackPath = isActive && fallbackIndex >= 0
               ? remainingTabs[fallbackIndex]
               : undefined;

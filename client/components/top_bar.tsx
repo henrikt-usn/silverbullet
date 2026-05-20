@@ -269,7 +269,7 @@ export function TopBar({
                   <button
                     type="button"
                     className="sb-tab-close"
-                    aria-label={`Close tab ${tab.name}`}
+                    aria-label={`Close ${tab.name} (${tab.path})`}
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
