@@ -566,11 +566,12 @@ export class MainUI {
             }
             const isActive = viewState.current?.path === path;
             const closingIndex = viewState.openTabs.indexOf(path);
-            const fallbackPath = closingIndex >= 0
-              ? viewState.openTabs[closingIndex + 1] ??
-                viewState.openTabs[closingIndex - 1]
+            const remainingTabs = viewState.openTabs.filter((p) => p !== path);
+            const fallbackIndex = Math.min(closingIndex, remainingTabs.length - 1);
+            const fallbackPath = isActive && fallbackIndex >= 0
+              ? remainingTabs[fallbackIndex]
               : undefined;
-            dispatch({ type: "close-tab", path });
+            dispatch({ type: "close-tab", path, fallbackPath });
             if (isActive && fallbackPath) {
               safeRun(async () => {
                 await client.navigate({ path: fallbackPath });

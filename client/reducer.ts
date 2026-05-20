@@ -47,7 +47,9 @@ export default function reducer(
       return {
         ...state,
         openTabs,
-        activeTab: state.activeTab === action.path ? undefined : state.activeTab,
+        activeTab: state.activeTab === action.path
+          ? action.fallbackPath
+          : state.activeTab,
       };
     }
     case "document-editor-changed":
